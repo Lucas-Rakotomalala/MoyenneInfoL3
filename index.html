@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Calcul Moyenne par Modules</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container" ng-app="myApp">
+  <div>
+    <div class="row text-center" id="header">
+      <h1>Calculez votre moyenne générale!</br></h1>
+      <h5>Vous n'avez qu'à entrer vos notes et les coeffs dans les champs dédiés, les notes des UE et la moyenne générale sont calculés automatiquement. Laisser le champ note vide si vous n'avez pas encore votre note.</h5>
+    </div>
+    <div class="row">
+      <table id="outer" ng-controller="myController">
+        <!--Header Row-->
+        <thead class="table-header">
+          <tr>
+            <th class="text-center col-xs-2">UE</th>
+            <th class="text-center col-xs-2">Contrôles</th>
+            <th class="text-center col-xs-2">Note Contrôle</th>
+            <th class="text-center col-xs-2">Coefficien Contrôle </th>
+            <th class="text-center col-xs-2">Note UE</th>
+            <th class="text-center col-xs-2">Coefficient UE</th>
+          </tr>
+        </thead>
+
+        <!--Insider rows-->
+        <tbody>
+          <tr class="mainRow" ng-repeat="mod in Mods">
+            <!--Titre module-->
+            <td class="nomModule">{{mod.nom}}</td>
+            <!--Titres Matières-->
+            <td>
+              <table>
+                <tr ng-repeat="mat in mod.matieres">
+                  <td>{{mat.nom}}</td>              
+                </tr>
+              </table>
+            </td>
+            <!--Notes Matières-->
+            <td>
+              <table class="col-xs-12">
+                <tr ng-repeat="mat in mod.matieres">
+                  <td class="alter">
+                    <input class="no-spinners text-center" type="number" min="0" max="20" step="0.001" placeholder="{{mat.note}}" ng-model="mat.note"></input>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <!--coeff Matières-->
+            <td>
+                <table class="col-xs-12">
+                  <tr ng-repeat="mat in mod.matieres">
+                    <td class="alter">
+                      <input class="no-spinners text-center" type="number" min="0" max="1" step="0.001" placeholder="{{mat.coeff}}" ng-model="mat.coeff" ></input>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            
+            <!--Moyenne du module-->
+            <td class="text-center" type="number">{{moyenne(mod)}}</td>
+            <!--Coeff Module-->
+            <td class="text-center" type="number">{{mod.coeff}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="text-center">Moyenne Générale</td>
+            <td colspan="3" class="text-center" step="0.001">{{moyGen(Mods)}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
